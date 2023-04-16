@@ -31,6 +31,17 @@ class Student:
         f_lbl=Label(self.root,image=self.photoimg2)
         f_lbl.place(x=1000,y=0,width=550,height=130) 
 
+         #background image       
+        img3 = Image.open("college_images/wp2551980.jpg ")
+        img3=img3.resize((1530, 710),Image.Resampling.LANCZOS)
+        self.photoimg3=ImageTk.PhotoImage(img3)
+
+        bg_img=Label(self.root,image=self.photoimg3)
+        bg_img.place(x=0,y=130,width=1530,height=710) 
+
+        title_lb1=Label(bg_img,text="STUDENT MANAGEMENT SYSTEM",font=("times new romain",35,"bold"),bg="white",fg="dark green")
+        title_lb1.place(x=0, y=0, width=1530,height=45)
+
 
 
 
