@@ -41,9 +41,31 @@ class Student:
 
         title_lb1=Label(bg_img,text="STUDENT MANAGEMENT SYSTEM",font=("times new romain",35,"bold"),bg="white",fg="dark green")
         title_lb1.place(x=0, y=0, width=1530,height=45)
+#Frame
+        main_frame = Frame(bg_img, bd =2,bg="white")
+        main_frame.place(x=20,y=50, width=1480,height=600)
+
+#left label Frame
+             
+        Left_frame=LabelFrame(main_frame,bd=2,bg="white",relief=RIDGE,text="Student Details")
+        Left_frame.place(x=10,y=10,width=760, height=580)
+
+        img_left = Image.open("college_images/AdobeStock_303989091.jpeg ")
+        img_left=img_left.resize((745, 130),Image.Resampling.LANCZOS)
+        self.photoimg_left=ImageTk.PhotoImage(img_left)
+
+        f_lbl=Label(Left_frame,image=self.photoimg_left)
+        f_lbl.place(x=5,y=0,width=745,height=130)
+
+#Right label Frame
+        Right_frame=LabelFrame(main_frame,bd=2,bg="white",relief=RIDGE,text="Student Details")
+        Right_frame.place(x=780,y=10,width=680, height=580)
+           
+
+        
 
 
-
+ 
 
 if __name__ == "__main__":
     root=Tk()
