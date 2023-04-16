@@ -131,7 +131,7 @@ class Face_Recognition_System:
 
         b1_1=Button(bg_img,text="DEVELOPER", cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=750,y=580,width=215,height=40)
-
+ 
  #exit       
         img11 = Image.open("college_images/exit.jpg ")
         img11=img11.resize((220, 220),Image.Resampling.LANCZOS)
