@@ -197,26 +197,45 @@ class Student:
         update_photo_btn.grid(row=0,column=1)
 
 
+#Right label Frame
+        Right_frame=LabelFrame(main_frame,bd=2,bg="white",relief=RIDGE,text="Student Details")
+        Right_frame.place(x=780,y=10,width=680, height=580)
 
+        img_right = Image.open("college_images/gettyimages-1022573162.jpg ")
+        img_right=img_right.resize((745, 130),Image.Resampling.LANCZOS)
+        self.photoimg_right=ImageTk.PhotoImage(img_right)
 
+        f_lbl=Label(Right_frame,image=self.photoimg_right)
+        f_lbl.place(x=5,y=0,width=745,height=130)
 
+#Search System
+        
+        Search_frame=LabelFrame(Right_frame,bd=2,bg="white",relief=RIDGE,text="Search System",font=("times new roman",13,"bold"))
+        Search_frame.place(x=5,y=135,width=665,height=70)
 
+        search_label=Label(Search_frame,text="Search BY:",font=("times new romain",13 ,"bold"),bg="brown",fg="white")
+        search_label.grid(row=0, column=0, padx=10,pady=5, sticky=W) 
 
+        search_combo=ttk.Combobox(Search_frame,font=("times new romain",14  ,"bold"),state="readonly",width=11)
+        search_combo["values"]=("Select","Roll No","Phone No")
+        search_combo.current(0)
+        search_combo.grid(row=0,column=1,padx=2,pady=10,sticky=W) 
 
+        search_entry=ttk.Entry(Search_frame,width=14,font=("times new romain",13 ,"bold"))
+        search_entry.grid(row=0,column=2,padx=10, pady=5,sticky=W)
 
+        search_btn=Button(Search_frame,text = "Search",width=12, font=("times new roman",12,"bold"),bg="blue",fg="pink")
+        search_btn.grid(row=0,column=3,padx=4)
 
-
+        showAll_btn=Button(Search_frame,text = "Showall",width=11, font=("times new roman",12,"bold"),bg="blue",fg="pink")
+        showAll_btn.grid(row=0,column=4,padx=4)
+#Table Frame system
+        table_frame=LabelFrame(Right_frame,bd=2,bg="white",relief=RIDGE)
+        table_frame.place(x=5,y=210,width=665,height=250)
 
 
         
 
-
-
-
-
-#Right label Frame
-        Right_frame=LabelFrame(main_frame,bd=2,bg="white",relief=RIDGE,text="Student Details")
-        Right_frame.place(x=780,y=10,width=680, height=580)
            
 
         
