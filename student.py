@@ -2,6 +2,7 @@ from tkinter import*
 from tkinter import ttk
 from PIL import Image,ImageTk
 from tkinter import messagebox
+import mysql.connector
 
 
 class Student:
@@ -101,10 +102,10 @@ class Student:
         dep_combo.grid(row=1,column=1,padx=2, pady=10, sticky=W)
 
 #Semester 
-        semester_label=Label(current_course_frame,text="Department",font=("times new romain",12 ,"bold"),bg="white")
+        semester_label=Label(current_course_frame,text="Semester",font=("times new romain",12 ,"bold"),bg="white")
         semester_label.grid(row=1, column=2, padx=10, sticky=W)
         semester_combo=ttk.Combobox(current_course_frame,textvariable=self.var_semester,font=("times new romain",14  ,"bold"),state="readonly",width=20)
-        semester_combo["values"]=("Select Department","Computer Science","IT","Civil","mechanical","Electrical")
+        semester_combo["values"]=("Select Semester","semester2","semester1")
         semester_combo.current(0)
         semester_combo.grid(row=1,column=3,padx=2,pady=10,sticky=W)  
 
@@ -183,11 +184,10 @@ class Student:
 
 #radio button
         self.var_radio1=StringVar()
-        radionbtn1=ttk.Radiobutton(class_student_frame,textvariable=self.var_radio1,text="Take Photo Sample",value="Yes")
+        radionbtn1=ttk.Radiobutton(class_student_frame,variable=self.var_radio1,text="Take Photo Sample",value="Yes")
         radionbtn1.grid(row=6,column=0)
 
-        self.var_radio2=StringVar()
-        radionbtn2=ttk.Radiobutton(class_student_frame,textvariable=self.var_radio2,text="No Photo Sample",value="No")
+        radionbtn2=ttk.Radiobutton(class_student_frame,variable=self.var_radio1,text="No Photo Sample",value="No")
         radionbtn2.grid(row=6,column=1)
 
 #buttons frame
@@ -301,7 +301,47 @@ class Student:
         if self.var_dep.get()=="Select Department" or self.var_name.get()==""or self.var_id.get()=="":
             messagebox.showerror("Error","All Field are required",parent=self.root)
         else:
-            messagebox.showinfo("success","welcome student management")    
+            try:
+                conn=mysql.connector.connect(host="localhost",username="root",password="extra@191712",database="face_recognizer")
+                my_cursor=conn.cursor()
+                my_cursor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(
+                                                                                                           self.var_dep.get(),                
+                                                                                                           self.var_course.get(),                
+                                                                                                           self.var_year.get(),                
+                                                                                                           self.var_semester.get(),                
+                                                                                                           self.var_id.get(),                
+                                                                                                           self.var_name.get(),                
+                                                                                                           self.var_div.get(),                
+                                                                                                           self.var_roll.get(),                
+                                                                                                           self.var_gender.get(),                
+                                                                                                           self.var_dob.get(),                
+                                                                                                           self.var_email.get(),                
+                                                                                                           self.var_phone.get(),                
+                                                                                                           self.var_address.get(),                
+                                                                                                           self.var_teacher.get(),                
+                                                                                                           self.var_radio1.get(),                
+
+
+
+
+
+
+              
+              
+                                                                                                        ))
+                conn.commit()
+                conn.close()
+                messagebox.showinfo("Success","Student details has been added")
+            except Exception as es:
+                messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
+                 
+   
+
+             
+                 
+                 
+   
+        
         
 
 
@@ -312,10 +352,7 @@ class Student:
 
         
 
-
- 
-
 if __name__ == "__main__":
-    root=Tk()
-    obj=Student(root)
-    root.mainloop()
+      root=Tk()
+      obj=Student(root)
+      root.mainloop()
