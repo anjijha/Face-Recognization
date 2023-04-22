@@ -211,7 +211,7 @@ class Student:
         Reset_btn=Button(btn_frame,text = "Reset",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         Reset_btn.grid(row=0,column=2)
 
-        Delete_btn=Button(btn_frame,text = "Delete",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
+        Delete_btn=Button(btn_frame,text = "Delete",command=self.delete_data,width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         Delete_btn.grid(row=0,column=3)
 
         btn_frame1=Frame(class_student_frame,bd=2,relief=RIDGE,bg="white")
@@ -426,8 +426,27 @@ class Student:
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
     #delete function 
-    def delete_data           
-
+    def delete_data(self):
+        if self.var_id.get()=="":            
+            messagebox.showerror("Error","Student id must be required",parent=self.root)
+        else:
+            try:
+                delete=messagebox.askyesno("Student Delete Page","Do you want to delete this Student",parent=self.root)
+                if delete>0:
+                    conn=mysql.connector.connect(host="localhost",username="root",password="extra@191712",database="face_recognizer")
+                    my_cursor=conn.cursor()
+                    sql="delete from student where Student_id=%s"
+                    val=(self.var_id.get(),)
+                    my_cursor.execute(sql,val)
+                else:
+                    if not delete:
+                        return    
+                conn.commit()
+                self.fetch_data()
+                conn.close()
+                messagebox.showinfo("Delete","Successfully deleted student details",parent=self.root)                   
+            except Exception as es:
+                messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
         
 
            
