@@ -104,7 +104,7 @@ class Student:
 #Semester 
         semester_label=Label(current_course_frame,text="Semester",font=("times new romain",12 ,"bold"),bg="white")
         semester_label.grid(row=1, column=2, padx=10, sticky=W)
-        semester_combo=ttk.Combobox(current_course_frame,textvariable=self.var_semester,font=("times new romain",14  ,"bold"),state="readonly",width=20)
+        semester_combo=ttk.Combobox(current_course_frame,textvariable=self.var_semester,font=("times new romain",14  ,"bold"),state="readonly",width=18)
         semester_combo["values"]=("Select Semester","semester2","semester1")
         semester_combo.current(0)
         semester_combo.grid(row=1,column=3,padx=2,pady=10,sticky=W)  
@@ -135,7 +135,7 @@ class Student:
         div_combo=ttk.Combobox(class_student_frame,textvariable=self.var_div,font=("times new romain",13 ,"bold"),state="readonly",width=18)
         div_combo["values"]=("A","B","C","D")
         div_combo.current(0)
-        div_combo.grid(row=1,column=1,padx=10, pady=10, sticky=W)
+        div_combo.grid(row=1,column=1,padx=10, pady=5, sticky=W)
 #Roll no
         roll_no_label=Label(class_student_frame,text="Roll NO:",font=("times new romain",13 ,"bold"),bg="white")
         roll_no_label.grid(row=1, column=2, padx=10,pady=5, sticky=W) 
@@ -151,7 +151,7 @@ class Student:
         gender_combo=ttk.Combobox(class_student_frame,textvariable=self.var_gender,font=("times new romain",13 ,"bold"),state="readonly",width=18)
         gender_combo["values"]=("Male","Female","other")
         gender_combo.current(0)
-        gender_combo.grid(row=2,column=1,padx=10, pady=10, sticky=W)
+        gender_combo.grid(row=2,column=1,padx=10, pady=5, sticky=W)
 
 
 #dob
@@ -208,7 +208,7 @@ class Student:
         Update_btn=Button(btn_frame,text = "Update",command=self.update_data,width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         Update_btn.grid(row=0,column=1)
 
-        Reset_btn=Button(btn_frame,text = "Reset",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
+        Reset_btn=Button(btn_frame,text = "Reset",command=self.reset_data,width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         Reset_btn.grid(row=0,column=2)
 
         Delete_btn=Button(btn_frame,text = "Delete",command=self.delete_data,width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
@@ -447,7 +447,25 @@ class Student:
                 messagebox.showinfo("Delete","Successfully deleted student details",parent=self.root)                   
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
+    #reset function
+    def reset_data(self):
+        self.var_dep.set("Select Deparment")    
+        self.var_course.set("Select Course")
+        self.var_year.set("Select Year")
+        self.var_semester.set("Select Semester")
+        self.var_id.set("")
+        self.var_div.set("Select Division")
+        self.var_roll.set("")
+        self.var_gender.set("Male")
+        self.var_dob.set("")
+        self.var_email.set("")
+        self.var_phone.set("")
+        self.var_address.set("")
+        self.var_teacher.set("")
+        self.var_radio1.set("")
+
         
+
 
            
 
