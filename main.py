@@ -1,8 +1,10 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image,ImageTk
-from student import Student
 import os
+from student import Student
+from train import Train
+
 
 
 class Face_Recognition_System:
@@ -95,17 +97,17 @@ class Face_Recognition_System:
         b1_1=Button(bg_img,text="HELP DESK", cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=1000,y=307,width=215,height=40)
 
- #train data       
+ #train data button      
         img8 = Image.open("college_images/Train.jpg ")
         img8=img8.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg8=ImageTk.PhotoImage(img8)
 
-        b1=Button(self.root,image=self.photoimg8, cursor="hand2")
+        b1=Button(self.root,image=self.photoimg8, cursor="hand2",command=self.train_data)
 
         b1.place(x=250,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="TRAIN DATA", cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
+        b1_1=Button(bg_img,text="TRAIN DATA", cursor="hand2",command=self.train_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=250,y=580,width=215,height=40)
 
  #photo data       
@@ -156,6 +158,10 @@ class Face_Recognition_System:
     def student_detail(self):
         self.new_window=Toplevel(self.root)
         self.app=Student(self.new_window)
+
+    def train_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Train(self.new_window)    
  
 
    
