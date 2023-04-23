@@ -23,6 +23,11 @@ class Train:
         f_lbl=Label(self.root,image=self.photoimg_top)
         f_lbl.place(x=0,y=55,width=1530,height=325) 
 
+        #================Button=============
+
+        b1_1=Button(self.root,text="TRAIN DATA", cursor="hand2", font=("times new roman",30,"bold"),bg="red", fg="white")
+        b1_1.place(x=0,y=380,width=1530,height=60) 
+
 #=========================Bottom Images =================
         img_bottom = Image.open("college_images/public.jpg")
         img_bottom=img_bottom.resize((1530, 325),Image.Resampling.LANCZOS)
