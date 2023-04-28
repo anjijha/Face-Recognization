@@ -77,19 +77,19 @@ class Face_Recognition:
 
                 my_cursor.execute("select Name from student where Student_id="+str(id))
                 n=my_cursor.fetchone()
-                n=str(n)
+                n="+".join(n)
 
                 my_cursor.execute("select Roll from student where Student_id="+str(id))
                 r=my_cursor.fetchone()
-                r=str(r)
+                r="+".join(r)
 
                 my_cursor.execute("select Dep from student where Student_id="+str(id))
                 d=my_cursor.fetchone()
-                d=str(d)
+                d="+".join(d)
 
                 my_cursor.execute("select Student_id from student where Student_id="+str(id))
                 i=my_cursor.fetchone()
-                i=str(i)
+                i="+".join(i)
 
                 if n == "None" or r == "None" or d == "None" or i == "None":
                     cv2.rectangle(img, (x,y), (x+w, y+h), (0, 0, 255), 3)
