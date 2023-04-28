@@ -4,13 +4,25 @@ from PIL import Image,ImageTk
 from tkinter import messagebox
 import mysql.connector
 import cv2
+import os
+import csv
+from tkinter import filedialog
 
-
+mydata=[]
 class Attendance:
     def __init__(self, root):
         self.root=root
         self.root.geometry("1530x790+0+0")
         self.root.title("face Recognition System")
+
+        #==========================variable================
+        self.var_atten_id=StringVar()
+        self.var_atten_roll=StringVar()
+        self.var_atten_name=StringVar()
+        self.var_atten_dep=StringVar()
+        self.var_atten_time=StringVar()
+        self.var_atten_date=StringVar()
+        self.var_atten_attendance=StringVar()
 
 #first image
         img = Image.open("college_images/classstudent.jpg ")
@@ -62,42 +74,42 @@ class Attendance:
         attendance_label=Label(left_inside_frame,text="AttendanceID:",font=("times new romain",13 ,"bold"),bg="white")
         attendance_label.grid(row=0, column=0, padx=10,pady=5, sticky=W) 
 
-        attendance_entry=ttk.Entry(left_inside_frame,width=20,font=("times new romain",13 ,"bold"))
+        attendance_entry=ttk.Entry(left_inside_frame,width=20,textvariable=self.var_atten_id,font=("times new romain",13 ,"bold"))
         attendance_entry.grid(row=0,column=1,padx=10,sticky=W)
 
         #Name
         nameLabel=Label(left_inside_frame,text="Name:",bg="white",font="comicsansns 11 bold")
         nameLabel.grid(row=0, column=2, padx=4,pady=8) 
 
-        atten_name=ttk.Entry(left_inside_frame,width=22,font="comicsansns 11 bold")
+        atten_name=ttk.Entry(left_inside_frame,width=22,textvariable=self.var_atten_name,font="comicsansns 11 bold")
         atten_name.grid(row=0,column=3,pady=8)
 
         #date
         dateLabel=Label(left_inside_frame,text="Date:",bg="white",font="comicsansns 11 bold")
         dateLabel.grid(row=1, column=0) 
 
-        atten_date=ttk.Entry(left_inside_frame,width=22,font="comicsansns 11 bold")
+        atten_date=ttk.Entry(left_inside_frame,width=22,textvariable=self.var_atten_date,font="comicsansns 11 bold")
         atten_date.grid(row=1,column=1,pady=8)
 
         #department
         depLabel=Label(left_inside_frame,text="Department:",bg="white",font="comicsansns 11 bold")
         depLabel.grid(row=1, column=2) 
 
-        atten_dep=ttk.Entry(left_inside_frame,width=22,font="comicsansns 11 bold")
+        atten_dep=ttk.Entry(left_inside_frame,width=22,textvariable=self.var_atten_dep,font="comicsansns 11 bold")
         atten_dep.grid(row=1,column=3,pady=8)
 
         #time
         timeLabel=Label(left_inside_frame,text="Time:",bg="white",font="comicsansns 11 bold")
         timeLabel.grid(row=2, column=0) 
 
-        atten_time=ttk.Entry(left_inside_frame,width=22,font="comicsansns 11 bold")
+        atten_time=ttk.Entry(left_inside_frame,width=22,textvariable=self.var_atten_time,font="comicsansns 11 bold")
         atten_time.grid(row=2,column=1,pady=8)
 
         #roll
         rollLabel=Label(left_inside_frame,text="Roll:",bg="white",font="comicsansns 11 bold")
         rollLabel.grid(row=2, column=2) 
 
-        atten_roll=ttk.Entry(left_inside_frame,width=22,font="comicsansns 11 bold")
+        atten_roll=ttk.Entry(left_inside_frame,width=22,textvariable=self.var_atten_roll,font="comicsansns 11 bold")
         atten_roll.grid(row=2,column=3,pady=8)
 
         #attendance
@@ -113,13 +125,13 @@ class Attendance:
         btn_frame=Frame(left_inside_frame,bd=2,relief=RIDGE,bg="white")
         btn_frame.place(x=0,y=300,width=715,height=35)
 
-        save_btn=Button(btn_frame,text = "Import csv",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
+        save_btn=Button(btn_frame,text = "Import csv",command=self.importCsv,width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         save_btn.grid(row=0,column=0)
 
-        Update_btn=Button(btn_frame,text = "Export csv",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
+        Update_btn=Button(btn_frame,text = "Export csv",command=self.exportCsv,width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         Update_btn.grid(row=0,column=1)
 
-        Reset_btn=Button(btn_frame,text = "Reset",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
+        Reset_btn=Button(btn_frame,text = "Reset",width=17,command=self.reset_data, font=("times new roman",13,"bold"),bg="blue",fg="pink")
         Reset_btn.grid(row=0,column=2)
 
         Delete_btn=Button(btn_frame,text = "Delete",width=17, font=("times new roman",13,"bold"),bg="blue",fg="pink")
@@ -163,6 +175,61 @@ class Attendance:
         self.AttendanceReportTable.column("attendance",width="100")
 
         self.AttendanceReportTable.pack(fill=BOTH,expand=1)
+        self.AttendanceReportTable.bind("<ButtonRelease>",self.get_cursor)
+
+        #===========fetch data=============
+    def fetchData(self,rows):
+        self.AttendanceReportTable.delete(*self.AttendanceReportTable.get_children())
+        for i in rows:
+              self.AttendanceReportTable.insert("",END,values=i)
+      #import csv        
+    def importCsv(self):
+        global mydata 
+        mydata.clear()
+        fln=filedialog.askopenfilename(initialdir=os.getcwd(),title="Open CSV",filetypes=(("CSV File","*.csv"),("AL1 File","*.*")),parent=self.root)       
+        with open(fln) as myfile:
+             csvread=csv.reader(myfile,delimiter=",") 
+             for i in csvread:
+                mydata.append(i)
+             self.fetchData(mydata) 
+     #export csv 
+    def  exportCsv(self):
+        try:
+                if len(mydata)<1:
+                   messagebox.showerror("No Data","No Data found to export",parent=self.root)
+                   return False
+                fln=filedialog.asksaveasfilename(initialdir=os.getcwd(),title="Open CSV",filetypes=(("CSV File","*.csv"),("AL1 File","*.*")),parent=self.root) 
+                with open(fln,mode="w",newline="") as myfile:
+                   exp_write=csv.writer(myfile,delimiter=",")
+                   for i in mydata:
+                        exp_write.writerow(i)
+                   messagebox.showinfo("Data Export","Your data exported to"+os.path.basename(fln)+"successfully")
+        except Exception as es:
+                messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
+    def get_cursor(self,event=""):
+        cursor_row=self.AttendanceReportTable.focus()
+        content=self.AttendanceReportTable.item(cursor_row)
+        rows=content['values']  
+        self.var_atten_id.set(rows[0])
+        self.var_atten_roll.set(rows[1])
+        self.var_atten_name.set(rows[2])
+        self.var_atten_dep.set(rows[3])
+        self.var_atten_time.set(rows[4])
+        self.var_atten_date.set(rows[5])
+        self.var_atten_attendance.set(rows[6])
+
+    def reset_data(self):
+        self.var_atten_id.set("")
+        self.var_atten_roll.set("")
+        self.var_atten_name.set("")
+        self.var_atten_dep.set("")
+        self.var_atten_time.set("")
+        self.var_atten_date.set("")
+        self.var_atten_attendance.set("")
+          
+          
+
+                                      
 
 
 
