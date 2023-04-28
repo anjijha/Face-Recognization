@@ -5,6 +5,7 @@ from PIL import Image,ImageTk
 from tkinter import messagebox
 import mysql.connector
 import cv2
+from tkcalendar import *
 
 
 class Student:
@@ -20,6 +21,24 @@ class Student:
         "B.Sc": ["Bsc Geology", "Bio Medical"],
         "BCA": ["Computer Science"]
         }
+    
+    # Get the selected date when the user close the calendar
+        def pick_date(event):
+            global cal, delete_window
+            date_window = Toplevel()
+            date_window.grab_set()
+            date_window.title("Choose Date of Birth")
+            date_window.geometry('250x220+590+370')
+            cal = Calendar(date_window, selectmode="day", date_pattern="dd/mm/y")
+            cal.place(x=0, y=0)
+            submit_btn = Button(date_window, text="Submit", command=grab_date)
+            submit_btn.place(x=80, y=190)
+        
+        def grab_date():
+            dob_entry.delete(0, END)
+            dob_entry.insert(0, cal.get_date())
+            delete_window.destroy()
+
 
         #=============variables=============
         self.var_dep=StringVar()
@@ -93,13 +112,15 @@ class Student:
         dep_label.grid(row=0, column=0, padx=10, sticky=W, pady=5)
         self.dep_combo=ttk.Combobox(current_course_frame,textvariable=self.var_dep,font=("times new romain", 10 ,"bold"),state="readonly",width=20)
         self.dep_combo["values"]= list(self.dictDepartmentCourse.keys())
-        self.dep_combo.current(0)
+        # self.dep_combo.current(0)
+        self.var_dep.set("Select Department")
         self.dep_combo.grid(row=0,column=1,padx=10,sticky=W, pady=5)
         self.dep_combo.bind("<<ComboboxSelected>>", self.functionCourse)
 #Course
         course_label=Label(current_course_frame,text="Course",font=("Helvetica", 13 ,"bold"),bg="white")
         course_label.grid(row=0, column=2, padx=10, sticky=W)
         self.course_combo=ttk.Combobox(current_course_frame,textvariable=self.var_course,font=("times new romain",10 ,"bold"),state="readonly",width=20)
+        self.var_course.set("Select Course")
         self.course_combo.grid(row=0,column=3,padx=10,sticky=W, pady=5)
 
 #Year
@@ -169,6 +190,9 @@ class Student:
 
         dob_entry=ttk.Entry(class_student_frame,textvariable=self.var_dob,width=24,font=("times new romain",10 ,"bold"))
         dob_entry.grid(row=2,column=3,padx=10, pady=5,sticky=W)
+        dob_entry.insert(0, "dd/mm/yyyy")
+        dob_entry.bind("<1>", pick_date)
+        
 
 #Email
         email_label=Label(class_student_frame,text="E-mail",font=("Helvetica",13 ,"bold"),bg="white")
@@ -447,7 +471,7 @@ class Student:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
     #reset function
     def reset_data(self):
-        self.var_dep.set("Select Deparment")    
+        self.var_dep.set("Select Department")    
         self.var_course.set("Select Course")
         self.var_year.set("Select Year")
         self.var_semester.set("Select Semester")
