@@ -102,7 +102,7 @@ class Face_Recognition_System:
         b1_1=Button(bg_img,text="HELP DESK", cursor="hand2",command=self.help_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=1000,y=307,width=215,height=40)
 
- #train data button      
+#train data button      
         img8 = Image.open("college_images/Train.jpg ")
         img8=img8.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg8=ImageTk.PhotoImage(img8)
@@ -115,7 +115,7 @@ class Face_Recognition_System:
         b1_1=Button(bg_img,text="TRAIN DATA", cursor="hand2",command=self.train_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=250,y=580,width=215,height=40)
 
- #photo data       
+#photo data       
         img9 = Image.open("college_images/public.jpg ")
         img9=img9.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg9=ImageTk.PhotoImage(img9)
@@ -191,16 +191,6 @@ class Face_Recognition_System:
         self.app=Help(self.new_window)        
      
  
-
-   
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     root=Tk()
     obj=Face_Recognition_System(root)

@@ -11,6 +11,13 @@ class Student:
         self.root=root
         self.root.geometry("1530x790+0+0")
         self.root.title("face Recognition System")
+    # Course dictionary
+
+        self.dictDepartmentCourse = {
+        "B.Tech": ["Computer Science", "IT", "Civil", "Mechanical", "Elecrical", "Electronics"],
+        "B.Sc": ["Bsc Geology", "Bio Medical"],
+        "BCA": ["Computer Science"]
+        }
 
         #=============variables=============
         self.var_dep=StringVar()
@@ -50,7 +57,7 @@ class Student:
         f_lbl=Label(self.root,image=self.photoimg2)
         f_lbl.place(x=1000,y=0,width=550,height=130) 
 
-         #background image       
+        #background image       
         img3 = Image.open("college_images/wp2551980.jpg ")
         img3=img3.resize((1530, 710),Image.Resampling.LANCZOS)
         self.photoimg3=ImageTk.PhotoImage(img3)
@@ -82,17 +89,17 @@ class Student:
 #Department
         dep_label=Label(current_course_frame,text="Department",font=("times new romain",12 ,"bold"),bg="white")
         dep_label.grid(row=0, column=0, padx=10, sticky=W)
-        dep_combo=ttk.Combobox(current_course_frame,textvariable=self.var_dep,font=("times new romain",12 ,"bold"),state="readonly",width=20)
-        dep_combo["values"]=("Select Department","Computer Science","IT","Civil","mechanical","Electrical")
-        dep_combo.current(0)
-        dep_combo.grid(row=0,column=1,padx=10,sticky=W)
+        self.dep_combo=ttk.Combobox(current_course_frame,textvariable=self.var_dep,font=("times new romain",12 ,"bold"),state="readonly",width=20)
+        self.dep_combo["values"]= list(self.dictDepartmentCourse.keys())
+        self.dep_combo.current(0)
+        self.dep_combo.grid(row=0,column=1,padx=10,sticky=W)
+        self.dep_combo.bind("<<ComboboxSelected>>", self.functionCourse)
 #Course
         course_label=Label(current_course_frame,text="Course",font=("times new romain",13 ,"bold"),bg="white")
         course_label.grid(row=0, column=2, padx=10, sticky=W)
-        course_combo=ttk.Combobox(current_course_frame,textvariable=self.var_course,font=("times new romain",13 ,"bold"),state="readonly",width=20)
-        course_combo["values"]=("Select Course","Computer Science","FE","tr","ty","me")
-        course_combo.current(0)
-        course_combo.grid(row=0,column=3,padx=10,sticky=W)
+        self.course_combo=ttk.Combobox(current_course_frame,textvariable=self.var_course,font=("times new romain",13 ,"bold"),state="readonly",width=20)
+        # course_combo.current(0)
+        self.course_combo.grid(row=0,column=3,padx=10,sticky=W)
 
 #Year
         year_label=Label(current_course_frame,text="Year",font=("times new romain",13 ,"bold"),bg="white")
@@ -464,6 +471,14 @@ class Student:
         self.var_address.set("")
         self.var_teacher.set("")
         self.var_radio1.set("")
+    
+    # Function course
+    def functionCourse(self, events = ""):
+        dep = self.dep_combo.get()
+        listCourse = self.dictDepartmentCourse[dep]
+        self.course_combo.config(values=listCourse)
+        self.course_combo.current(0)
+        
 
      #=================== Generate data set or Take photo Sample ==============
     def generate_dataset(self):
