@@ -12,6 +12,7 @@ class Student:
         self.root=root
         self.root.geometry("1530x790+0+0")
         self.root.title("face Recognition System")
+        root.state('zoomed')
     # Course dictionary
 
         self.dictDepartmentCourse = {
