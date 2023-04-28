@@ -49,7 +49,7 @@ class Student:
 
         f_lbl=Label(self.root,image=self.photoimg1)
         f_lbl.place(x=500,y=0,width=500,height=130) 
-#third image
+#Third image
         img2 = Image.open("college_images/classstudent.jpg ")
         img2=img2.resize((500, 130),Image.Resampling.LANCZOS)
         self.photoimg2=ImageTk.PhotoImage(img2)
@@ -98,11 +98,10 @@ class Student:
         course_label=Label(current_course_frame,text="Course",font=("times new romain",13 ,"bold"),bg="white")
         course_label.grid(row=0, column=2, padx=10, sticky=W)
         self.course_combo=ttk.Combobox(current_course_frame,textvariable=self.var_course,font=("times new romain",13 ,"bold"),state="readonly",width=20)
-        # course_combo.current(0)
         self.course_combo.grid(row=0,column=3,padx=10,sticky=W)
 
 #Year
-        year_label=Label(current_course_frame,text="Year",font=("times new romain",13 ,"bold"),bg="white")
+        year_label=Label(current_course_frame,text="Admission Year",font=("times new romain",13 ,"bold"),bg="white")
         year_label.grid(row=1, column=0, padx=10, sticky=W)
         year_combo=ttk.Combobox(current_course_frame,textvariable=self.var_year,font=("times new romain",13 ,"bold"),state="readonly",width=20)
         year_combo["values"]=("Select Year","2019-20","2020-21","2021-22","2022-23","2023-24")
@@ -279,7 +278,7 @@ class Student:
 
         self.student_table.heading("dep",text="Department")
         self.student_table.heading("course",text="Course")
-        self.student_table.heading("year",text="Year")
+        self.student_table.heading("year",text="Admission Year")
         self.student_table.heading("sem",text="Semester")
         self.student_table.heading("id",text="StudentID")
         self.student_table.heading("name",text="Name")
