@@ -6,6 +6,8 @@ from student import Student
 from train import Train
 from face_recognition import Face_Recognition
 from attendance import Attendance
+from developer import Developer
+from help import Help
 
 
 
@@ -91,12 +93,12 @@ class Face_Recognition_System:
         img7=img7.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg7=ImageTk.PhotoImage(img7)
 
-        b1=Button(self.root,image=self.photoimg7, cursor="hand2")
+        b1=Button(self.root,image=self.photoimg7, cursor="hand2",command=self.help_data)
 
         b1.place(x=1000,y=220,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="HELP DESK", cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
+        b1_1=Button(bg_img,text="HELP DESK", cursor="hand2",command=self.help_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=1000,y=307,width=215,height=40)
 
  #train data button      
@@ -130,12 +132,12 @@ class Face_Recognition_System:
         img10=img10.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg10=ImageTk.PhotoImage(img10)
 
-        b1=Button(self.root,image=self.photoimg10, cursor="hand2")
+        b1=Button(self.root,image=self.photoimg10, cursor="hand2",command=self.developer_data)
 
         b1.place(x=750,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="DEVELOPER", cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
+        b1_1=Button(bg_img,text="DEVELOPER", cursor="hand2",command=self.developer_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=750,y=580,width=215,height=40)
  
  #exit       
@@ -172,6 +174,15 @@ class Face_Recognition_System:
     def attendance_data(self):
         self.new_window=Toplevel(self.root)
         self.app=Attendance(self.new_window)        
+
+    def developer_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Developer(self.new_window) 
+
+    def help_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Help(self.new_window)        
+     
  
 
    
