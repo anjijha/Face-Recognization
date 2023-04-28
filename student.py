@@ -257,7 +257,7 @@ class Student:
 
         showAll_btn=Button(Search_frame,text = "Showall",width=11, font=("times new roman",12,"bold"),bg="blue",fg="pink")
         showAll_btn.grid(row=0,column=4,padx=4)
-#Table Frame system
+#Table Frame system Scrollbar
         table_frame=LabelFrame(Right_frame,bd=2,bg="white",relief=RIDGE)
         table_frame.place(x=5,y=210,width=665,height=350)
 
