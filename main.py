@@ -1,6 +1,7 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image,ImageTk
+import tkinter
 import os
 from student import Student
 from train import Train
@@ -145,20 +146,26 @@ class Face_Recognition_System:
         img11=img11.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg11=ImageTk.PhotoImage(img11)
 
-        b1=Button(self.root,image=self.photoimg11, cursor="hand2")
+        b1=Button(self.root,image=self.photoimg11, cursor="hand2",command=self.iExit)
 
         b1.place(x=1000,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="EXIT", cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
+        b1_1=Button(bg_img,text="EXIT", cursor="hand2",command=self.iExit,font=("times new roman",15,"bold"),bg="darkblue", fg="white")
         b1_1.place(x=1000,y=580,width=215,height=40)
 
-        # open images from photos button
-
+ # open images from photos button
     def open_img(self):
-        os.startfile("data")    
+        os.startfile("data")
+    def iExit(self):
+        self.iExit=tkinter.messagebox.askyesno("Face Recognition","Are you sure exit this project",parent=self.root)
+        if self.iExit >0:
+            self.root.destroy()
+        else:
+            return
 
-        #Function buttons
+
+#Function buttons
     def student_detail(self):
         self.new_window=Toplevel(self.root)
         self.app=Student(self.new_window)
