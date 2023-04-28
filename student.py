@@ -340,10 +340,10 @@ class Student:
                                                                                                            self.var_address.get(),                
                                                                                                            self.var_teacher.get(),                
                                                                                                            self.var_radio1.get()))
+                messagebox.showinfo("Success","Student details has been added", parent=self.root)
                 conn.commit()
-                self.fetch_data()
-                messagebox.showinfo("Success","Student details has been added")
                 conn.close()
+                self.fetch_data()
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
                  
@@ -535,7 +535,7 @@ class Student:
                     if cv2.waitKey(1)==13 or int(img_id)==100:
                         break
                 cap.release()
-                cv2.destroyAllWindows()
+                # cv2.destroyAllWindows()
                 messagebox.showinfo("Result","Generating data sets completed!!!!")     
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)       
