@@ -17,6 +17,7 @@ class Face_Recognition_System:
         self.root=root
         self.root.geometry("1530x790+0+0")
         self.root.title("face Recognition System")
+        root.state('zoomed')
 
 #first image
         img = Image.open("college_images/Stanford.jpg ")
@@ -42,13 +43,13 @@ class Face_Recognition_System:
 
  #background image       
         img3 = Image.open("college_images/wp2551980.jpg ")
-        img3=img3.resize((1530, 710),Image.Resampling.LANCZOS)
+        img3=img3.resize((1540, 710),Image.Resampling.LANCZOS)
         self.photoimg3=ImageTk.PhotoImage(img3)
 
         bg_img=Label(self.root,image=self.photoimg3)
-        bg_img.place(x=0,y=130,width=1530,height=710) 
+        bg_img.place(x=0,y=130,width=1540,height=710) 
 
-        title_lb1=Label(bg_img,text="FACE RECOGNITION ATTENDANCE SOFTWARE",font=("times new romain",35,"bold"),bg="white",fg="red")
+        title_lb1=Label(bg_img,text="FACE RECOGNITION ATTENDANCE SOFTWARE",font=("times new romain",35,"bold"),bg="darkviolet",fg="white")
         title_lb1.place(x=0, y=0, width=1530,height=45)
 #Student button
         img4 = Image.open("college_images/gettyimages-1022573162.jpg ")
@@ -58,8 +59,8 @@ class Face_Recognition_System:
         b1=Button(self.root,image=self.photoimg4,command=self.student_detail, cursor="hand2")
         b1.place(x=250,y=220,width=220,height=220) 
 
-        b1_1=Button(bg_img,text="Student Details",command=self.student_detail, cursor="hand2", font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=248,y=307,width=220,height=40) 
+        b1_1=Button(bg_img,text="STUDENT DETAILS",command=self.student_detail, cursor="hand2", font=("times new roman",15,"bold"),bg="darkviolet", fg="white")
+        b1_1.place(x=250,y=307,width=220,height=40) 
 
 #Detect face button        
         img5 = Image.open("college_images/face_detector1.jpg ")
@@ -71,8 +72,8 @@ class Face_Recognition_System:
         b1.place(x=490,y=220,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="Face Detector", cursor="hand2",command=self.face_data,font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=490,y=307,width=215,height=40) 
+        b1_1=Button(bg_img,text="FACE DETECTOR", cursor="hand2",command=self.face_data,font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=490,y=307,width=220,height=40) 
 
 #Attendance face button      
 
@@ -82,11 +83,11 @@ class Face_Recognition_System:
 
         b1=Button(self.root,image=self.photoimg6, cursor="hand2",command=self.attendance_data)
 
-        b1.place(x=750,y=220,width=220,height=220) 
+        b1.place(x=730,y=220,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="ATTENDANCE", cursor="hand2",command=self.attendance_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=750,y=307,width=215,height=40)
+        b1_1=Button(bg_img,text="ATTENDANCE", cursor="hand2",command=self.attendance_data, font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=730,y=307,width=220,height=40)
     
 #Help face button        
 
@@ -96,11 +97,11 @@ class Face_Recognition_System:
 
         b1=Button(self.root,image=self.photoimg7, cursor="hand2",command=self.help_data)
 
-        b1.place(x=1000,y=220,width=220,height=220) 
+        b1.place(x=970,y=220,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="HELP DESK", cursor="hand2",command=self.help_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=1000,y=307,width=215,height=40)
+        b1_1=Button(bg_img,text="HELP DESK", cursor="hand2",command=self.help_data, font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=970,y=307,width=220,height=40)
 
 #train data button      
         img8 = Image.open("college_images/Train.jpg ")
@@ -112,8 +113,8 @@ class Face_Recognition_System:
         b1.place(x=250,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="TRAIN DATA", cursor="hand2",command=self.train_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=250,y=580,width=215,height=40)
+        b1_1=Button(bg_img,text="TRAIN DATA", cursor="hand2",command=self.train_data, font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=250,y=588,width=220,height=40)
 
 #photo data       
         img9 = Image.open("college_images/public.jpg ")
@@ -122,11 +123,11 @@ class Face_Recognition_System:
 
         b1=Button(self.root,image=self.photoimg9, cursor="hand2",command=self.open_img)
 
-        b1.place(x=500,y=500,width=220,height=220) 
+        b1.place(x=490,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="PHOTOS", cursor="hand2", command=self.open_img,font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=500,y=580,width=215,height=40)
+        b1_1=Button(bg_img,text="PHOTOS", cursor="hand2", command=self.open_img,font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=490,y=588,width=220,height=40)
  #DEVELOPER       
 
         img10 = Image.open("college_images/developer.jpg ")
@@ -135,11 +136,11 @@ class Face_Recognition_System:
 
         b1=Button(self.root,image=self.photoimg10, cursor="hand2",command=self.developer_data)
 
-        b1.place(x=750,y=500,width=220,height=220) 
+        b1.place(x=730,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="DEVELOPER", cursor="hand2",command=self.developer_data, font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=750,y=580,width=215,height=40)
+        b1_1=Button(bg_img,text="DEVELOPER", cursor="hand2",command=self.developer_data, font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=730,y=588,width=220,height=40)
  
  #exit       
         img11 = Image.open("college_images/exit.jpg ")
@@ -148,11 +149,11 @@ class Face_Recognition_System:
 
         b1=Button(self.root,image=self.photoimg11, cursor="hand2",command=self.iExit)
 
-        b1.place(x=1000,y=500,width=220,height=220) 
+        b1.place(x=970,y=500,width=220,height=220) 
         
 
-        b1_1=Button(bg_img,text="EXIT", cursor="hand2",command=self.iExit,font=("times new roman",15,"bold"),bg="darkblue", fg="white")
-        b1_1.place(x=1000,y=580,width=215,height=40)
+        b1_1=Button(bg_img,text="EXIT", cursor="hand2",command=self.iExit,font=("times new roman",15,"bold"),bg="dark violet", fg="white")
+        b1_1.place(x=970,y=588,width=220,height=40)
 
  # open images from photos button
     def open_img(self):
