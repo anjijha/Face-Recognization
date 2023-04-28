@@ -21,25 +21,25 @@ class Face_Recognition_System:
 
 #first image
         img = Image.open("college_images/Stanford.jpg ")
-        img=img.resize((500, 130),Image.Resampling.LANCZOS)
+        img=img.resize((530, 130),Image.Resampling.LANCZOS)
         self.photoimg=ImageTk.PhotoImage(img)
 
         f_lbl=Label(self.root,image=self.photoimg)
-        f_lbl.place(x=0,y=0,width=500,height=130)
+        f_lbl.place(x=0,y=0,width=530,height=130)
 #second image
         img1 = Image.open("college_images/facialrecognition.png ")
-        img1=img1.resize((500, 130),Image.Resampling.LANCZOS)
+        img1=img1.resize((530, 130),Image.Resampling.LANCZOS)
         self.photoimg1=ImageTk.PhotoImage(img1)
 
         f_lbl=Label(self.root,image=self.photoimg1)
-        f_lbl.place(x=500,y=0,width=500,height=130) 
+        f_lbl.place(x=500,y=0,width=530,height=130) 
 #third image
         img2 = Image.open("college_images/u.jpg ")
-        img2=img2.resize((500, 130),Image.Resampling.LANCZOS)
+        img2=img2.resize((540, 130),Image.Resampling.LANCZOS)
         self.photoimg2=ImageTk.PhotoImage(img2)
 
         f_lbl=Label(self.root,image=self.photoimg2)
-        f_lbl.place(x=1000,y=0,width=550,height=130) 
+        f_lbl.place(x=1000,y=0,width=540,height=130) 
 
  #background image       
         img3 = Image.open("college_images/wp2551980.jpg ")
@@ -52,7 +52,7 @@ class Face_Recognition_System:
         title_lb1=Label(bg_img,text="FACE RECOGNITION ATTENDANCE SOFTWARE",font=("times new romain",35,"bold"),bg="darkviolet",fg="white")
         title_lb1.place(x=0, y=0, width=1530,height=45)
 #Student button
-        img4 = Image.open("college_images/gettyimages-1022573162.jpg ")
+        img4 = Image.open("Images/main_student_info.png")
         img4=img4.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg4=ImageTk.PhotoImage(img4)
 
@@ -77,7 +77,7 @@ class Face_Recognition_System:
 
 #Attendance face button      
 
-        img6 = Image.open("college_images/report.jpg ")
+        img6 = Image.open("Images/main_attendance.png")
         img6=img6.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg6=ImageTk.PhotoImage(img6)
 
@@ -91,7 +91,7 @@ class Face_Recognition_System:
     
 #Help face button        
 
-        img7 = Image.open("college_images/help.jpg ")
+        img7 = Image.open("Images/main_help.png")
         img7=img7.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg7=ImageTk.PhotoImage(img7)
 
@@ -104,7 +104,7 @@ class Face_Recognition_System:
         b1_1.place(x=970,y=307,width=220,height=40)
 
 #train data button      
-        img8 = Image.open("college_images/Train.jpg ")
+        img8 = Image.open("Images/main_training.png")
         img8=img8.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg8=ImageTk.PhotoImage(img8)
 
@@ -130,7 +130,7 @@ class Face_Recognition_System:
         b1_1.place(x=490,y=588,width=220,height=40)
  #DEVELOPER       
 
-        img10 = Image.open("college_images/developer.jpg ")
+        img10 = Image.open("Images/main_developer.png")
         img10=img10.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg10=ImageTk.PhotoImage(img10)
 
@@ -143,7 +143,7 @@ class Face_Recognition_System:
         b1_1.place(x=730,y=588,width=220,height=40)
  
  #exit       
-        img11 = Image.open("college_images/exit.jpg ")
+        img11 = Image.open("Images/main_exit.png")
         img11=img11.resize((220, 220),Image.Resampling.LANCZOS)
         self.photoimg11=ImageTk.PhotoImage(img11)
 
