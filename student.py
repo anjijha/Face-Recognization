@@ -461,6 +461,7 @@ class Student:
         self.var_address.set("")
         self.var_teacher.set("")
         self.var_radio1.set("")
+        self.var_name.set("")
     
     # Function course
     def functionCourse(self, events = ""):
