@@ -6,6 +6,7 @@ from tkinter import messagebox
 import mysql.connector
 import cv2
 from tkcalendar import *
+import re
 
 
 class Student:
@@ -38,6 +39,11 @@ class Student:
             dob_entry.delete(0, END)
             dob_entry.insert(0, cal.get_date())
             delete_window.destroy()
+        
+        # regular expression to validate fields
+        self.regexEmail = re.compile(r'([A-Za-z0-9])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        self.regexName = re.compile(r'[A-Za-z]{2-25}\s{0,1}[A-Za-z]{0,25}')
+            
 
 
         #=============variables=============
@@ -45,7 +51,7 @@ class Student:
         self.var_course=StringVar()
         self.var_year=StringVar()
         self.var_semester=StringVar()
-        self.var_id=StringVar()
+        self.var_id=IntVar()
         self.var_name=StringVar()
         self.var_div=StringVar()
         self.var_roll=StringVar()
@@ -56,6 +62,15 @@ class Student:
         self.var_address=StringVar()
         self.var_teacher=StringVar()
 
+        def functionCheckID(event):
+            conn=mysql.connector.connect(host="localhost",username="root",password="extra@191712",database="face_recognizer")
+            my_cursor=conn.cursor()
+            my_cursor.execute("select * from student")
+            myresult=my_cursor.fetchall()
+            id=0
+            for x in myresult:
+                id+=1
+            self.var_id.set(id+1)
         #first image
         img = Image.open("college_images/face-recognition.png ")
         img=img.resize((500, 130),Image.Resampling.LANCZOS)
@@ -149,6 +164,7 @@ class Student:
 
         studentID_entry=ttk.Entry(class_student_frame,textvariable=self.var_id, width=24, font=("times new romain",10 ,"bold"))
         studentID_entry.grid(row=0,column=1, padx=10, sticky=W, pady=5)
+        studentID_entry.bind("<1>", functionCheckID)
 #student name        
 
         studentName_label=Label(class_student_frame,text="Student Name",font=("Helvetica",13 ,"bold"),bg="white")
@@ -179,7 +195,7 @@ class Student:
 
 
         gender_combo=ttk.Combobox(class_student_frame,textvariable=self.var_gender,font=("times new romain",10 ,"bold"),state="readonly",width=21)
-        gender_combo["values"]=("Select","Male","Female","other")
+        gender_combo["values"]=("Select","Male","Female","Not Specified")
         gender_combo.current(0)
         gender_combo.grid(row=2,column=1,padx=10, pady=5, sticky=W)
 
@@ -320,21 +336,21 @@ class Student:
         self.student_table.heading("photo",text="PhotoSampleStatus")
         self.student_table["show"]="headings"
         
-        self.student_table.column("dep",width=150)
-        self.student_table.column("course",width=100)
+        self.student_table.column("dep",width=100, anchor=tk.CENTER)
+        self.student_table.column("course",width=130, anchor=tk.CENTER)
         self.student_table.column("year",width=100, anchor=tk.CENTER)
-        self.student_table.column("sem",width=100)
+        self.student_table.column("sem",width=100, anchor=tk.CENTER)
         self.student_table.column("id",width=100, anchor=tk.CENTER)
-        self.student_table.column("name",width=100)
-        self.student_table.column("roll",width=100)
-        self.student_table.column("gender",width=100)
-        self.student_table.column("div",width=100)
-        self.student_table.column("dob",width=100)
-        self.student_table.column("email",width=100)
-        self.student_table.column("phone",width=100)
-        self.student_table.column("address",width=100)
-        self.student_table.column("teacher",width=100)
-        self.student_table.column("photo",width=150)
+        self.student_table.column("name",width=100, anchor=tk.CENTER)
+        self.student_table.column("roll",width=130, anchor=tk.CENTER)
+        self.student_table.column("gender",width=100, anchor=tk.CENTER)
+        self.student_table.column("div",width=100, anchor=tk.CENTER)
+        self.student_table.column("dob",width=100, anchor=tk.CENTER)
+        self.student_table.column("email",width=160,anchor=tk.CENTER)
+        self.student_table.column("phone",width=130,anchor=tk.CENTER)
+        self.student_table.column("address",width=100,anchor=tk.CENTER)
+        self.student_table.column("teacher",width=100,anchor=tk.CENTER)
+        self.student_table.column("photo",width=150,anchor=tk.CENTER)
 
         self.student_table.pack(fill=BOTH,expand=1)
         self.student_table.bind("<ButtonRelease>",self.get_cursor)
@@ -343,7 +359,15 @@ class Student:
     #===============function decration=======================
     def add_data(self):
         if self.var_dep.get()=="Select Department" or self.var_name.get()==""or self.var_id.get()=="":
-            messagebox.showerror("Error","All Field are required",parent=self.root)
+            messagebox.showerror("Error","All Field Are Required",parent=self.root)
+        
+        elif self.var_phone.get().isnumeric() == False or len(self.var_phone.get())!=10:
+            messagebox.showerror("Phone Number", "Please Fill Correct Number")
+        
+        
+        elif re.fullmatch(self.regexEmail, self.var_email.get()) == None:
+            messagebox.showerror("Email", "Please Fill Correct Email")
+
         else:
             try:
                 conn=mysql.connector.connect(host="localhost",username="root",password="extra@191712",database="face_recognizer")
@@ -354,15 +378,15 @@ class Student:
                                                                                                            self.var_year.get(),                
                                                                                                            self.var_semester.get(),                
                                                                                                            self.var_id.get(),                
-                                                                                                           self.var_name.get(),                
+                                                                                                           self.var_name.get().title(),                
                                                                                                            self.var_div.get(),                
                                                                                                            self.var_roll.get(),                
                                                                                                            self.var_gender.get(),                
                                                                                                            self.var_dob.get(),                
                                                                                                            self.var_email.get(),                
                                                                                                            self.var_phone.get(),                
-                                                                                                           self.var_address.get(),                
-                                                                                                           self.var_teacher.get(),                
+                                                                                                           self.var_address.get().title(),                
+                                                                                                           self.var_teacher.get().title(),                
                                                                                                            self.var_radio1.get()))
                 messagebox.showinfo("Success","Student details has been added", parent=self.root)
                 conn.commit()
@@ -413,7 +437,7 @@ class Student:
     #========== update function ============
     def update_data(self):
         if self.var_dep.get()=="Select Department" or self.var_name.get()==""or self.var_id.get()=="":
-            messagebox.showerror("Error","All Field are required",parent=self.root)   
+            messagebox.showerror("Error","All Field Are Required",parent=self.root)   
         else:
             try:
                 Update=messagebox.askyesno("Update","Do you want to update this student datails",parent=self.root)
@@ -441,7 +465,7 @@ class Student:
                 else:
                     if not Update:
                         return
-                messagebox.showinfo("Success","Student details successfully update completed",parent=self.root)
+                messagebox.showinfo("Success","Student Details Successfully Update Completed",parent=self.root)
                 conn.commit()
                 self.fetch_data()
                 conn.close()        
@@ -450,10 +474,10 @@ class Student:
     #delete function 
     def delete_data(self):
         if self.var_id.get()=="":            
-            messagebox.showerror("Error","Student id must be required",parent=self.root)
+            messagebox.showerror("Error","Student Id Must Be Required",parent=self.root)
         else:
             try:
-                delete=messagebox.askyesno("Student Delete Page","Do you want to delete this Student",parent=self.root)
+                delete=messagebox.askyesno("Student Delete Page","Do You Want To Delete This Student",parent=self.root)
                 if delete>0:
                     conn=mysql.connector.connect(host="localhost",username="root",password="extra@191712",database="face_recognizer")
                     my_cursor=conn.cursor()
@@ -466,7 +490,7 @@ class Student:
                 conn.commit()
                 self.fetch_data()
                 conn.close()
-                messagebox.showinfo("Delete","Successfully deleted student details",parent=self.root)                   
+                messagebox.showinfo("Delete","Successfully Deleted Student Details",parent=self.root)                   
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
     #reset function
@@ -508,6 +532,7 @@ class Student:
                 id=0
                 for x in myresult:
                     id+=1
+                    # print("ar = " + str(self.var_id.get()))
                 my_cursor.execute("update student set Dep=%s,course=%s,Year=%s,Semester=%s,Name=%s,Division=%s,Roll=%s,Gender=%s,Dob=%s,Email=%s,Phone=%s,Address=%s,Teacher=%s,PhotoSample=%s where Student_id=%s",(
 
                                                                                                                                                                                        self.var_dep.get(),                
@@ -524,10 +549,7 @@ class Student:
                                                                                                                                                                                        self.var_address.get(),                
                                                                                                                                                                                        self.var_teacher.get(),                
                                                                                                                                                                                        self.var_radio1.get(),
-                                                                                                                                                                                       self.var_id.get()==id+1 
-
-
-                                                                                                                                                                                 ))
+                                                                                                                                                                                       self.var_id.get()==id+1))
                 conn.commit()
                 self.fetch_data()
                 self.reset_data()
@@ -561,7 +583,7 @@ class Student:
                         break
                 cap.release()
                 cv2.destroyAllWindows()
-                messagebox.showinfo("Result","Generating data sets completed!!!!", parent=self.root)     
+                messagebox.showinfo("WOW!!","Generating Data Sets Completed!!!!", parent=self.root)     
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)       
                 
