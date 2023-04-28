@@ -77,23 +77,26 @@ class Face_Recognition:
 
                 my_cursor.execute("select Name from student where Student_id="+str(id))
                 n=my_cursor.fetchone()
-                n="+".join(n)
+                n=str(n)
 
                 my_cursor.execute("select Roll from student where Student_id="+str(id))
                 r=my_cursor.fetchone()
-                r="+".join(r)
+                r=str(r)
 
                 my_cursor.execute("select Dep from student where Student_id="+str(id))
                 d=my_cursor.fetchone()
-                d="+".join(d)
+                d=str(d)
 
                 my_cursor.execute("select Student_id from student where Student_id="+str(id))
                 i=my_cursor.fetchone()
-                i="+".join(i)
+                i=str(i)
+
+                if n == "None" or r == "None" or d == "None" or i == "None":
+                    cv2.rectangle(img, (x,y), (x+w, y+h), (0, 0, 255), 3)
+                    cv2.putText(img, "Unknoww Face", (x,y-55), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 255), 3)
 
 
-
-                if confidence>77:
+                elif confidence>77:
                     cv2.putText(img,f"ID:{i}",(x,y-75),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     cv2.putText(img,f"Roll:{r}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     cv2.putText(img,f"Name:{n}",(x,y-30),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)

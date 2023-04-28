@@ -339,20 +339,11 @@ class Student:
                                                                                                            self.var_phone.get(),                
                                                                                                            self.var_address.get(),                
                                                                                                            self.var_teacher.get(),                
-                                                                                                           self.var_radio1.get(),                
-
-
-
-
-
-
-              
-              
-                                                                                                        ))
+                                                                                                           self.var_radio1.get()))
                 conn.commit()
                 self.fetch_data()
-                conn.close()
                 messagebox.showinfo("Success","Student details has been added")
+                conn.close()
             except Exception as es:
                 messagebox.showerror("Error",f"Due To:{str(es)}",parent=self.root)
                  
@@ -422,10 +413,7 @@ class Student:
                                                                                                                                                                                        self.var_address.get(),                
                                                                                                                                                                                        self.var_teacher.get(),                
                                                                                                                                                                                        self.var_radio1.get(),
-                                                                                                                                                                                       self.var_id.get() 
-
-
-                                                                                                                                                                                 ))
+                                                                                                                                                                                       self.var_id.get()))
                 else:
                     if not Update:
                         return
