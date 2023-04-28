@@ -1,4 +1,5 @@
 from tkinter import*
+import tkinter as tk
 from tkinter import ttk
 from PIL import Image,ImageTk
 from tkinter import messagebox
@@ -167,13 +168,13 @@ class Attendance:
 
         self.AttendanceReportTable["show"]="headings"
 
-        self.AttendanceReportTable.column("id",width="100")
-        self.AttendanceReportTable.column("roll",width="100")
-        self.AttendanceReportTable.column("name",width="100")
-        self.AttendanceReportTable.column("department",width="100")
-        self.AttendanceReportTable.column("time",width="100")
-        self.AttendanceReportTable.column("date",width="100")
-        self.AttendanceReportTable.column("attendance",width="100")
+        self.AttendanceReportTable.column("id",width="100",anchor=tk.CENTER)
+        self.AttendanceReportTable.column("roll",width="100",anchor=tk.CENTER)
+        self.AttendanceReportTable.column("name",width="100",anchor=tk.CENTER)
+        self.AttendanceReportTable.column("department",width="100",anchor=tk.CENTER)
+        self.AttendanceReportTable.column("time",width="100",anchor=tk.CENTER)
+        self.AttendanceReportTable.column("date",width="100",anchor=tk.CENTER)
+        self.AttendanceReportTable.column("attendance",width="100",anchor=tk.CENTER)
 
         self.AttendanceReportTable.pack(fill=BOTH,expand=1)
         self.AttendanceReportTable.bind("<ButtonRelease>",self.get_cursor)
