@@ -25,7 +25,7 @@ class Student:
     
     # Get the selected date when the user close the calendar
         def pick_date(event):
-            global cal, delete_window
+            global cal, date_window
             date_window = Toplevel()
             date_window.grab_set()
             date_window.title("Choose Date of Birth")
@@ -38,7 +38,7 @@ class Student:
         def grab_date():
             dob_entry.delete(0, END)
             dob_entry.insert(0, cal.get_date())
-            delete_window.destroy()
+            date_window.destroy()
         
         # regular expression to validate fields
         self.regexEmail = re.compile(r'([A-Za-z0-9])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
