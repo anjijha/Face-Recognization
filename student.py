@@ -20,7 +20,8 @@ class Student:
         self.dictDepartmentCourse = {
         "B.Tech": ["Computer Science", "IT", "Civil", "Mechanical", "Elecrical", "Electronics"],
         "B.Sc": ["Bsc Geology", "Bio Medical"],
-        "BCA": ["Computer Science"]
+        "BCA": ["Computer Science"],
+        "B.com":["msks"]
         }
     
     # Get the selected date when the user close the calendar
@@ -362,11 +363,11 @@ class Student:
             messagebox.showerror("Error","All Field Are Required",parent=self.root)
         
         elif self.var_phone.get().isnumeric() == False or len(self.var_phone.get())!=10:
-            messagebox.showerror("Phone Number", "Please Fill Correct Number")
+            messagebox.showerror("Phone Number", "Please Fill Correct Number",parent=self.root)
         
         
         elif re.fullmatch(self.regexEmail, self.var_email.get()) == None:
-            messagebox.showerror("Email", "Please Fill Correct Email")
+            messagebox.showerror("Email", "Please Fill Correct Email",parent=self.root)
 
         else:
             try:
